@@ -67,5 +67,5 @@ if __name__ == "__main__":
         admin_user.password = user_input
         admin_user.save()
     app.secret_key = config.get("HOME", "SECRET_KEY")
-    app.run(host='0.0.0.0', debug=True, use_reloader=True)
+    app.run(host='0.0.0.0', debug=True, use_reloader=True, port=3000)
 

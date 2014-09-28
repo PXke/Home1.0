@@ -1,3 +1,5 @@
 Flask
 sqlalchemy
 flask-login
+mysql-python
+pysha3
