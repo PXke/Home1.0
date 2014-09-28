@@ -13,8 +13,15 @@ app.register_blueprint(core_pages)
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = "/login"
+def load_user(userid):
+    from core.users import Users
+    return Users.get_by_id(userid)
+login_manager.user_loader(load_user)
 
+
+logging.basicConfig(filename="HOME1.0")
 logging.getLogger("Home1.0")
+
 
 config = ConfigParser.ConfigParser()
 config_file = open('configuration.conf')
@@ -55,7 +62,6 @@ if __name__ == "__main__":
         create_db()
 
     db.table_names()
-
     from core.users import Users
     try:
         session().query(Users).filter(Users.pseudonyme == "Admin").one()
@@ -63,6 +69,7 @@ if __name__ == "__main__":
         print("Admin new password ?:")
         user_input = raw_input()
         admin_user = Users()
+        admin_user.status = 1
         admin_user.pseudonyme = "Admin"
         admin_user.password = user_input
         admin_user.save()

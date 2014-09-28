@@ -8,20 +8,35 @@
 {% block main %}
 <div class="row">
   <div class="col-md-4"></div>
-  <div class="col-md-4 well">
-
-    <form role="form">
+  <div class="col-md-4">
+  <div class="well">
+    <form role="form" method="post" action="/login" >
       <div class="form-group">
         <label for="fieldpseudo">Username</label>
-        <input type="username" class="form-control" id="fieldpseudo" placeholder="Username">
+        <input name="username" type="username" class="form-control" id="fieldpseudo" placeholder="Username">
       </div>
       <div class="form-group">
         <label for="exampleInputPassword1">Password</label>
-        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+        <input name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
       </div>
       <button type="submit" class="btn btn-default">Submit</button>
+
     </form>
-      </div>
+
+    <a href="/register"><br><p >register an account</p></a>
+    </div>
+    <div>
+        {% if message %}
+        <div class="alert alert-danger" role="alert">
+           {{message}}
+        </div>
+        {% endif %}
+    </div>
+    <blockquote>
+    <p>"{{ citation }}"</p>
+    </blockquote>
+  </div>
+
   <div class="col-md-4"></div>
   </div>
 </div>

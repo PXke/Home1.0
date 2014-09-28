@@ -4,10 +4,11 @@ import uuid
 import logging
 
 from sqlalchemy import Column, Integer, String
-from application import login_manager
 from core.database import base, session
+from application import login_manager
 
 logging.getLogger("Home1.0")
+
 
 class Users(base):
     __tablename__ = 'users'
@@ -66,6 +67,8 @@ class Users(base):
             user = Users.get_by_pseudonyme(pseudonyme)
             password = sha3.sha3_512(password + user.salt).hexdigest()
             if password == user.password:
+                user.last_login = time.time()
+                user.save()
                 return True
             else:
                 return False
@@ -74,7 +77,7 @@ class Users(base):
             return False
 
     def is_active(self):
-        if self.status == 1:
+        if self.status >= 1:
             if time.time() - 3600 > self.last_login:
                 return False
             else:
@@ -92,10 +95,3 @@ class Users(base):
         return self.id
 
 
-@login_manager.user_loader
-def load_user(userid):
-    try:
-        return Users.get_by_id(userid)
-    except Exception as e:
-        logging.error(e.message)
-        return None
