@@ -1,10 +1,13 @@
 import time
 import sha3
 import uuid
+import logging
+
 from sqlalchemy import Column, Integer, String
 from application import login_manager
 from core.database import base, session
 
+logging.getLogger("Home1.0")
 
 class Users(base):
     __tablename__ = 'users'
@@ -66,7 +69,8 @@ class Users(base):
                 return True
             else:
                 return False
-        except:
+        except Exception as e:
+            logging.error(e.message)
             return False
 
     def is_active(self):
@@ -92,5 +96,6 @@ class Users(base):
 def load_user(userid):
     try:
         return Users.get_by_id(userid)
-    except:
+    except Exception as e:
+        logging.error(e.message)
         return None

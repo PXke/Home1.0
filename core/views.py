@@ -7,12 +7,12 @@ core_pages = Blueprint('core_page', __name__, template_folder="templates")
 @core_pages.route("/")
 @login_required
 def base():
-    print "hello"
+     return render_template("menu.html")
 
-
+@core_pages.route("/login")
 def login():
-    render_template("login.html")
+    return render_template("login.html")
 
 @core_pages.route("/register", methods=["GET", "POST"])
-def login():
-    render_template("register.html")
+def register():
+    return render_template("register.html")
